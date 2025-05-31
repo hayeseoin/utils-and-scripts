@@ -1,2 +1,3 @@
-# util-scripts
-Personal utility scripts
+# Utilities
+
+A collection of personal utilities for WSL, Linux and Windows.
