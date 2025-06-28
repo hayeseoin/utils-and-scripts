@@ -1,0 +1,23 @@
+#!/bin/bash
+
+ARGS_EXIST=0
+VALID_ARGS_ONE=(l u d s)
+OPTIONS_EXIST=0
+VALID_ARGS_TWO=(n)
+LEN_SPEC_EXISTS=0
+
+if [ $# -ne 0 ]; then
+    ARGS_EXIST=1
+fi
+
+LOWER_CASE='a-z'
+UPPER_CASE='A-Z'
+DIGITS='[0-9]'
+STRING_LEN='14' # Default
+
+VAR_CONTAINER=$LOWER_CASE
+# VAR_CONTAINER=$VAR_CONTAINER$LOWER_CASE
+
+head -c 64 /dev/urandom | base64 | \
+  tr -dc $VAR_CONTAINER | \
+  cut -c -$STRING_LEN
