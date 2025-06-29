@@ -2,19 +2,20 @@
 
 set -e
 
+BASH_PROFILES="$HOME/.profile.d"
+
 cd "$(dirname "$0")"
 cd ..
-
-# $SCRIPTS_FIND=""
-# $SCRIPTS=""
 
 SCRIPTS=$(
     find . -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | \
     grep -v "setup"
 )
 
-# echo $SCRIPTS
+# Ensure ~/.profile.d exists
+mkdir -p $BASH_PROFILES
 
 for i in $SCRIPTS; do
-    echo $i
+    chmod -R 644 "$i/profile.d"
+    ln "$i/profile.d/*.sh" $HOME/.profile.d/
 done
