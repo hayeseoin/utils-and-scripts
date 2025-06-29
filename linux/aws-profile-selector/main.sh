@@ -1,5 +1,18 @@
 #!/bin/bash
 
+AWS_PROFILE_PRE_EXISTS=0
+
+if [[ $AWS_PROFILE ]]; then
+    AWS_PROFILE=""
+    AWS_PROFILE_PRE_EXISTS=1
+fi
+
+if [[ $1 == 'exit' ]]; then
+  AWS_PROFILE=""
+  source $HOME/.bashrc
+  return 0
+fi
+
 mapfile aws_profiles < <(aws configure list-profiles | grep -v 'default')
 
 for i in "${!aws_profiles[@]}"; do
@@ -30,4 +43,6 @@ if [ ! $? == 0 ]; then
 fi
 
 AWS_COLOUR="\[\e[33;01;33m\]"
-export PS1="$AWS_COLOUR(${AWS_PROFILE})$PS1"
+if [[ $AWS_PROFILE_PRE_EXISTS -eq 0 ]]; then
+  export PS1="$AWS_COLOUR(${AWS_PROFILE})$PS1"
+fi
