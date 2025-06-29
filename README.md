@@ -4,6 +4,15 @@ A collection of personal utilities for WSL, Linux and Windows.
 
 ## Linux
 
+> Important: ALiases are stored as seperate files in `~/.profile.d`, so it's importantt that the shell checks this directory. This can be done by adding the following to `~/.bashrc`
+> ```sh
+> if [ -d "$HOME/.profile.d" ]; then
+>  for file in "$HOME/.profile.d"/*.sh; do
+>    [ -r "$file" ] && [ -f "$file" ] && . "$file"
+>  done
+> fi
+> ```
+
 ### Setup
 
 To enable these scripts for all users, we can place the scripts in the `/opt` directory, and add the shell aliases to `/etc/profile.d`. This requires extra steps, as we will need to create a management group for the directory and update the permissions to make it easier to keep up to date.
