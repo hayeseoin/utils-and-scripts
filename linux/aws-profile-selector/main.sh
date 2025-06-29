@@ -26,7 +26,8 @@ if [ ! $? == 0 ]; then
   if [ ! $? == 0 ]; then
     echo "Login failed"
     exit 1
+  fi
 fi
 
 AWS_COLOUR="\[\e[33;01;33m\]"
-export PS1="$AWS_COLOUR($AWS_PROFILE)$PS1"
+export PS1="$AWS_COLOUR(${AWS_PROFILE})$PS1"
