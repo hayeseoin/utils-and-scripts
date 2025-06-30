@@ -38,7 +38,8 @@ if [ ! $? == 0 ]; then
   aws sso login
   if [ ! $? == 0 ]; then
     echo "Login failed"
-    exit 1
+    AWS_PROFILE=""
+    return 1
   fi
 fi
 
