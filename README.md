@@ -6,7 +6,7 @@ A collection of personal utilities for WSL, Linux and Windows.
 
 ### Setup
 
-Running the setup script should deploy these scripts to `~/.utils-and-scripts`. 
+Running the setup script should deploy these scripts to `~/.utils-and-scripts/linux`. 
 ```sh
 ./linux/setup/main.sh
 ```
@@ -70,8 +70,35 @@ $ asp exit
 
 ## WSL
 
-### **`launch-ps-admin-shell.sh`**
-Lauches a Powershell Admin window on the desktop at the current WSL directory. Useful for popping into powershell for a quick admin task from WSL. e.g. running 'vagrant up'. Most useful when working in the windows filesystem from WSL.
+### Setup
 
-> Location: `/opt/utils-and-scripts/wsl/launch-ps-admin-shell.sh`  
-> Alias: `alias psadmin=/opt/utils-and-scripts/wsl/launch-ps-admin-shell.sh`  
+Running the setup script should deploy these scripts to `~/.utils-and-scripts/wsl`. 
+```sh
+./wsl/setup/main.sh
+```
+Aliases are added to `~/.profile.d`
+> Important: ALiases are stored as seperate files in `~/.profile.d`, so it's importantt that the shell checks this directory. This can be done by adding the following to `~/.bashrc`
+
+> ```sh
+> if [ -d "$HOME/.profile.d" ]; then
+>  for file in "$HOME/.profile.d"/*.sh; do
+>    [ -r "$file" ] && [ -f "$file" ] && . "$file"
+>  done
+> fi
+> ```
+
+### Scripts
+
+#### [**`launch-ps-admin-shell.sh`**](/wsl/ps-admin-shell/)
+Lauches a Powershell Admin window on the desktop at the current WSL directory. Useful for popping into powershell for a quick admin task from WSL. e.g. running any Hyper-V powershell commands.
+
+**Alias**: `psadmin`
+
+**Usage**
+Run the script in a bash shell
+```sh
+# Bash shell
+psadmin
+```
+A windows admin pop up will appear. If approved, a seperate powershell admin window will appear on your desktop.
+

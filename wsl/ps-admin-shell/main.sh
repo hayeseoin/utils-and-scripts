@@ -2,11 +2,6 @@
 
 # Description:
 # Lauches a Powershell Admin window on the desktop at the current WSL directory. Useful for popping into powershell for a quick admin task from WSL. For example, running 'vagrant up'
-#
-# Recomended: 
-# /opt/utiles-and-scripts/wsl/launch-ps-admin-shell.sh
-# alias psadmin=/opt/utils-and-scripts/wsl/launch-ps-admin-shell.sh
-
 
 WINUSER=$(powershell.exe '[System.Environment]::UserName' | tr -d '\r')
 WINPATH=$(wslpath -w "$PWD")
