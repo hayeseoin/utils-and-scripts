@@ -1,8 +1,11 @@
 #!/bin/bash
 
+AWS_PROFILE=""
+INPUT_ARG=$1
+
 check_args_for_profile() {
   for i in "${aws_profiles[@]}"; do
-    if [[ $1 == $i ]]; then
+    if [[ $INPUT_ARG == $i ]]; then
       export AWS_PROFILE=$i
       return 0
     fi
@@ -27,7 +30,7 @@ select_profile_from_list() {
 
   if [[ ! "$choice" =~ ^[0-9]+$ ]] || (( choice < 1 || choice > ${#aws_profiles[@]} )); then
     echo "Invalid choice."
-    return 42
+    return 1
   fi
 
   export AWS_PROFILE="${aws_profiles[choice-1]}"
@@ -42,9 +45,7 @@ if [[ ! -f "$HOME/.bashrc" ]]; then
   return 1
 fi
 
-AWS_PROFILE=""
-
-if [[ $1 == 'exit' ]]; then
+if [[ $INPUT_ARG == 'exit' ]]; then
   AWS_PROFILE=""
   source $HOME/.bashrc
   return 0
@@ -52,15 +53,16 @@ fi
 
 aws_load_profiles
 
-if [[ $1 ]]; then
-  if ! check_args_for_profile "$1"; then
-    echo "$1 is not a configured profile"
+if [[ $INPUT_ARG ]]; then
+  check_args_for_profile
+  if [[ $? -eq 1 ]]; then
+    echo "$INPUT_ARG is not a configured profile"
     return 1
   fi
 fi
 
-if [[ $1 && ! $AWS_PROFILE ]]; then
-  echo "$1 is not a configured profile"
+if [[ $INPUT_ARG && ! $AWS_PROFILE ]]; then
+  echo "$INPUT_ARG is not a configured profile"
   return 1
 fi
 
@@ -68,7 +70,7 @@ if [[ ! $AWS_PROFILE ]]; then
   select_profile_from_list
   if [[ $? -eq 99 ]]; then
     return 0
-  elif [[ $? -eq 42 ]]; then
+  elif [[ $? -eq 1 ]]; then
     return 1
   fi
 fi
