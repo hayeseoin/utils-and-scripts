@@ -22,15 +22,51 @@ Aliases are added to `~/.profile.d`
 
 ### Scripts
 
-#### **`bash-random-generator`**
+#### [**`bash-random-generator`**](/linux/bash-random-generator/)
 Uses bash to generate a random string. Currently set to generate a 14 character lower case string, useful for S3 buckets for example. 
 
-Alias: `grand`
+**Alias**: `grand`
 
-#### **`aws-profile-selector`**
-Interactively choose from your configured AWS profiles, and set choice as `AWS_PROFILE` in the current shell.
+**Usage examples**:
+```sh
+# Generate random 14 letter string
+$ grand
+odkjiepozxowjf
+```
 
-Alias: `asp`
+#### [**`aws-profile-selector`**](/linux/aws-profile-selector/)
+Choose from your configured AWS profiles, and set choice as `AWS_PROFILE` in the current shell. Interactively or with parameters.
+
+**Alias**: `asp`
+
+**Instructions**:  
+ - `asp` loads the interactive mentu
+ - `asp [PROFILE]` loads a known profile directly
+ - `asp exit` unloads the profile
+
+**Usage examples**:
+```sh
+# Basic interactive
+[host]:[~]
+$ asp
+  [1] eoins_profile
+  [2] sa-main-eoinhay-es
+  [3] sa-test-eoinhay-es
+  [0] exit
+Select profile [1-3]: 1
+(eoins_profile)[host]:[~]
+
+# Inline
+[host]:[~]
+$ asp eoins_profile
+(eoins_profile)[host]:[~]
+
+# Exiting
+(eoins_profile)[host]:[~]
+$ asp exit
+[host]:[~]
+```
+
 
 ## WSL
 
