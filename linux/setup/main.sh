@@ -7,6 +7,13 @@ BASH_PROFILES="$HOME/.profile.d"
 cd "$(dirname "$0")"
 cd ..
 
+if [ "$(git rev-list --count origin/main..main)" -gt 0 ]; then
+    echo "Main branch is ahead of origin. Please review."
+    exit 1
+fi
+
+git pull origin main
+
 SCRIPTS=$(
     find . -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | \
     grep -v "setup"
