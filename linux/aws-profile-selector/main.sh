@@ -34,6 +34,7 @@ select_profile_from_list() {
   fi
 
   export AWS_PROFILE="${aws_profiles[choice-1]}"
+  return 0
 }
 
 aws_load_profiles() {
@@ -67,10 +68,12 @@ if [[ $INPUT_ARG && ! $AWS_PROFILE ]]; then
 fi
 
 if [[ ! $AWS_PROFILE ]]; then
+  
   select_profile_from_list
-  if [[ $? -eq 99 ]]; then
+  PROFILE_EXIT_CODE=$?
+  if [[ "$PROFILE_EXIT_CODE" -eq 99 ]]; then
     return 0
-  elif [[ $? -eq 1 ]]; then
+  elif [[ "$PROFILE_EXIT_CODE" -eq 1 ]]; then
     return 1
   fi
 fi
